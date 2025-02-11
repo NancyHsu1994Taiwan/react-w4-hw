@@ -4,6 +4,6 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === "production" ? "react-w2-hw" : "/",
+  base: process.env.NODE_ENV === "production" ? "react-w3-hw" : "/",
   plugins: [react()],
 });
