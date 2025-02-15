@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import { Modal } from "bootstrap";
+import Pagination from "../components/Pagination";
 
-function ProductPage({ getProductList, productList }) {
+function ProductPage() {
   const { VITE_BASE_URL: BASE_URL, VITE_API_BASE: API_BASE } = import.meta.env;
   // 登入相關 -----------------------------------------------------------
   const checkAuth = async () => {
@@ -27,6 +27,22 @@ function ProductPage({ getProductList, productList }) {
     imageUrl: "",
     imagesUrl: [],
   });
+  const [productList, setProductList] = useState([]);
+  const [pageInfo, setPageInfo] = useState({});
+
+  const getProductList = async (page = 1) => {
+    const result = await axios.get(
+      `${BASE_URL}/api/${API_BASE}/admin/products?page=${page}`
+    );
+    const products = result.data.products;
+    const page_info = result.data.pagination;
+
+    setProductList(products);
+    setPageInfo(page_info);
+  };
+  useEffect(() => {
+    getProductList();
+  }, []);
   const addNewOrEditProduct = async () => {
     const product = {
       ...templateProduct,
@@ -238,27 +254,8 @@ function ProductPage({ getProductList, productList }) {
         </div>
       </div>
       {/* pagination */}
-      <nav aria-label="Page navigation example">
-        <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link" href="#">
-              Previous
-            </a>
-          </li>
-          {}
-          <li className="page-item">
-            <a className="page-link" href="#">
-              1
-            </a>
-          </li>
+      <Pagination pageInfo={pageInfo} getProductList={getProductList} />
 
-          <li className="page-item">
-            <a className="page-link" href="#">
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
       {/* modal */}
       <div
         ref={modalRef}
@@ -498,8 +495,3 @@ function ProductPage({ getProductList, productList }) {
 }
 
 export default ProductPage;
-
-ProductPage.prototype = {
-  getProductList: PropTypes.func.isRequired,
-  productList: PropTypes.array.isRequired,
-};
