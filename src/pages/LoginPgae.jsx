@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-function LoginPage({ setIsAuth, getProductList }) {
+function LoginPage({ setIsAuth }) {
   const { VITE_BASE_URL: BASE_URL } = import.meta.env;
 
   const [user, setUser] = useState({
@@ -34,7 +34,7 @@ function LoginPage({ setIsAuth, getProductList }) {
       // const products = result.data.products;
 
       // setProductList(products);
-      getProductList();
+      // getProductList();
     } catch (error) {
       alert(error.message);
     }
@@ -89,5 +89,4 @@ export default LoginPage;
 
 LoginPage.propTypes = {
   setIsAuth: PropTypes.func.isRequired,
-  getProductList: PropTypes.func.isRequired,
 };
