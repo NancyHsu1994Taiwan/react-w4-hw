@@ -57,6 +57,7 @@ function ModalComponent({
       ...templateProduct,
       origin_price: Number(templateProduct.origin_price),
       price: Number(templateProduct.price),
+      is_enabled: templateProduct.is_enabled ? 1 : 0,
     };
 
     if (status === "new") {
@@ -74,7 +75,7 @@ function ModalComponent({
         closeModal();
         getProductList();
       } catch (error) {
-        console.log(error);
+        alert("新增產品失敗", error.message);
       }
     } else {
       try {
@@ -90,7 +91,7 @@ function ModalComponent({
         closeModal();
         getProductList();
       } catch (error) {
-        console.log(error);
+        alert("編輯產品失敗", error.message);
       }
     }
   };
@@ -103,7 +104,6 @@ function ModalComponent({
         `${BASE_URL}/api/${API_BASE}/admin/upload`,
         fd
       );
-      console.log(res);
       setTemplateProduct({
         ...templateProduct,
         imageUrl: res.data.imageUrl,
@@ -284,6 +284,7 @@ function ModalComponent({
                       type="number"
                       className="form-control"
                       placeholder="請輸入原價"
+                      min="0"
                       onChange={handleModalInputChange}
                     />
                   </div>
@@ -298,6 +299,7 @@ function ModalComponent({
                       type="number"
                       className="form-control"
                       placeholder="請輸入售價"
+                      min="0"
                       onChange={handleModalInputChange}
                     />
                   </div>

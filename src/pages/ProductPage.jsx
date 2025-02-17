@@ -55,7 +55,7 @@ function ProductPage() {
       closeModal();
       getProductList();
     } catch (error) {
-      console.log(error);
+      alert("刪除產品失敗", error.message);
     }
   };
 
