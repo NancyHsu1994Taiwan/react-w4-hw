@@ -86,6 +86,7 @@ function App() {
       ...templateProduct,
       origin_price: Number(templateProduct.origin_price),
       price: Number(templateProduct.price),
+      is_enabled: templateProduct.is_enabled ? 1 : 0,
     };
 
     if (status === "new") {
@@ -103,7 +104,7 @@ function App() {
         closeModal();
         getProductList();
       } catch (error) {
-        console.log(error);
+        alert("新增產品失敗", error.message);
       }
     } else {
       try {
@@ -119,11 +120,7 @@ function App() {
         closeModal();
         getProductList();
       } catch (error) {
-        if (status === "new") {
-          alert("新增產品失敗", error.message);
-        } else {
-          alert("編輯產品失敗", error.message);
-        }
+        alert("編輯產品失敗", error.message);
       }
     }
   };
@@ -137,7 +134,7 @@ function App() {
       closeModal();
       getProductList();
     } catch (error) {
-      console.log(error);
+      alert("刪除產品失敗", error.message);
     }
   };
   // modal相關 --------------------------
