@@ -47,7 +47,7 @@ function Pagination({ pageInfo, getProductList }) {
   );
 }
 export default Pagination;
-Pagination.prototype = {
+Pagination.propTypes = {
   pageInfo: PropTypes.shape({
     total_pages: PropTypes.number,
     current_page: PropTypes.number,
