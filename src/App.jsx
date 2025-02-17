@@ -119,13 +119,16 @@ function App() {
         closeModal();
         getProductList();
       } catch (error) {
-        console.log(error);
+        if (status === "new") {
+          alert("新增產品失敗", error.message);
+        } else {
+          alert("編輯產品失敗", error.message);
+        }
       }
     }
   };
 
   const deleteProduct = async (id) => {
-    console.log("delete", productId);
     try {
       const res = await axios.delete(
         `${BASE_URL}/api/${API_BASE}/admin/product/${id}`
@@ -482,6 +485,7 @@ function App() {
                       </label>
                       <input
                         value={templateProduct.origin_price}
+                        min="0"
                         name="origin_price"
                         id="origin_price"
                         type="number"
@@ -496,6 +500,7 @@ function App() {
                       </label>
                       <input
                         value={templateProduct.price}
+                        min="0"
                         name="price"
                         id="price"
                         type="number"
